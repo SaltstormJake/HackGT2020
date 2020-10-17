@@ -74,24 +74,24 @@ public class MovementScript : MonoBehaviour
         switch (direction)
         {
             case MoveDirection.NORTH:
-                dir = Vector3.forward;
+                dir = Vector3.up;
                 inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
                 if (inTheWay)
                     break;
-                position.z += movementAmount;
-                while (position.z - transform.position.z > 0.01f)
+                position.y += movementAmount;
+                while (position.y - transform.position.y > 0.01f)
                 {
                     transform.Translate(dir * Time.deltaTime * moveSpeed, Space.World);
                     yield return null;
                 }
                 break;
             case MoveDirection.SOUTH:
-                dir = Vector3.back;
+                dir = Vector3.down;
                 inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
                 if (inTheWay)
                     break;
-                position.z -= movementAmount;
-                while (transform.position.z - position.z > 0.01f)
+                position.y -= movementAmount;
+                while (transform.position.y - position.y > 0.01f)
                 {
                     transform.Translate(dir * Time.deltaTime * moveSpeed, Space.World);
                     yield return null;
