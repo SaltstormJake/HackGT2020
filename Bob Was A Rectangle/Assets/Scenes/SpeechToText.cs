@@ -70,7 +70,7 @@ namespace IBM.Watsson.Examples
             {"RIGHT" , new string[] {"RIGHT", "EAST", "RIGHTWARDS", "RIGHTWARD", "EASTERLY", "EASTWARD", "EASTWARDS", "STARBOARD"}},
             {"UP" , new string[] {"UP", "UPWARDS", "UPWARD", "NORTH", "NORTHWARD", "NORTHWARDS", "FORWARD", "FORWARDS"}},
             {"DOWN" , new string[] {"DOWN", "DOWNWARD", "DOWNWARDS", "SOUTH", "SOUTHWARD", "SOUTHWARDS", "SOUTHERLY", "BACKWARDS", "STERN", "STERNWARD", "STERNWARDS"}},
-            {"PULL" , new string[] {"PULL", "YANK", "TUG", "HEAVE", "LUG"}},
+            {"PULL" , new string[] {"PULL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
             {"OPEN" , new string[] {"OPEN", "UNLOCK"}}
         };
         private SpeechToTextService _service;
@@ -254,9 +254,9 @@ namespace IBM.Watsson.Examples
                             {
                                 foreach (KeyValuePair<string, string[]> kvp in actionMappings)
                                 {
-                                    if (kvp.Value.Contains(wordUp))
+                                    if (wordUp != null && kvp.Value.Contains(wordUp))
                                     {
-                                        actionEvent(kvp.Key);
+                                        //actionEvent(kvp.Key);
                                         toDisplay = kvp.Key;
                                     }
                                 }
