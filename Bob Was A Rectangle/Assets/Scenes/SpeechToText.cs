@@ -256,7 +256,10 @@ namespace IBM.Watsson.Examples
                                 {
                                     if (wordUp != null && kvp.Value.Contains(wordUp))
                                     {
-                                        //actionEvent(kvp.Key);
+                                        if (actionEvent != null)
+                                        {
+                                            actionEvent(kvp.Key);
+                                        }
                                         toDisplay = kvp.Key;
                                     }
                                 }
