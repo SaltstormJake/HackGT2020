@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectRecognition : MonoBehaviour
+{
+    string command;
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log(other.gameObject.tag.ToString());
+
+        if (other.gameObject.tag == "Door" && command == "OPEN")
+        {
+            other.gameObject.GetComponent<DoorScript>().UseDoor();
+        }
+
+        if (other.gameObject.tag == "Lever" && command == "PULL")
+        {
+            other.gameObject.GetComponent<LeverScript>().PullLever();
+        }
+    }
+
+    public void SetCommand(string com)
+    {
+        command = com;
+    }
+}
+

@@ -23,7 +23,7 @@ public class LeverScript : MonoBehaviour
         
     }
 
-    void PullLever()
+    public void PullLever()
     {
         if (!pulled)
         {
