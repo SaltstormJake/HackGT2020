@@ -19,6 +19,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 using IBM.Watson.SpeechToText.V1;
 using IBM.Cloud.SDK;
@@ -29,7 +30,7 @@ using IBM.Cloud.SDK.DataTypes;
 
 namespace IBM.Watsson.Examples
 {
-    public class ExampleStreaming : MonoBehaviour
+    public class SpeechToText : MonoBehaviour
     {
         #region PLEASE SET THESE VARIABLES IN THE INSPECTOR
         [Space(10)]
@@ -50,6 +51,9 @@ namespace IBM.Watsson.Examples
         private string _recognizeModel;
         #endregion
 
+        public delegate void ActionEvent(string actionName);
+        public static event ActionEvent actionEvent;
+
 
         private int _recordingRoutine = 0;
         private string _microphoneID = null;
@@ -57,6 +61,18 @@ namespace IBM.Watsson.Examples
         private int _recordingBufferSize = 1;
         private int _recordingHZ = 22050;
 
+        private Stack<string> wordBuffer = new Stack<string>();
+        private string[] lastBlock = new string[0];
+        private bool isProcessing = false;
+        private readonly Dictionary<string, string[]> actionMappings = new Dictionary<string, string[]>()
+        {
+            {"LEFT" , new string[] {"LEFT", "WEST", "LEFTWARD", "LEFTWARDS", "WESTERLY", "WESTWARDS", "WESTWARD", "PORT", "PORTSIDE"}}, 
+            {"RIGHT" , new string[] {"RIGHT", "EAST", "RIGHTWARDS", "RIGHTWARD", "EASTERLY", "EASTWARD", "EASTWARDS", "STARBOARD"}},
+            {"UP" , new string[] {"UP", "UPWARDS", "UPWARD", "NORTH", "NORTHWARD", "NORTHWARDS", "FORWARD", "FORWARDS"}},
+            {"DOWN" , new string[] {"DOWN", "DOWNWARD", "DOWNWARDS", "SOUTH", "SOUTHWARD", "SOUTHWARDS", "SOUTHERLY", "BACKWARDS", "STERN", "STERNWARD", "STERNWARDS"}},
+            {"PULL" , new string[] {"PULL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
+            {"OPEN" , new string[] {"OPEN", "UNLOCK"}}
+        };
         private SpeechToTextService _service;
 
         void Start()
@@ -209,11 +225,47 @@ namespace IBM.Watsson.Examples
                 {
                     foreach (var alt in res.alternatives)
                     {
-                        string text = string.Format("{0}\n", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
+                        string text = string.Format("{0}", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
+                        string toDisplay = "NO INSTRUC";
                         Log.Debug("ExampleStreaming.OnRecognize()", text);
                         string[] words = text.Split(' ');
-                        ResultsField.text = words[words.Length - 2];
-                        //ResultsField.text = string.Join(" ", words);
+
+                        for (int i = 0; i < lastBlock.Length; i++)
+                        {
+                            wordBuffer.Pop();
+                        }
+                        foreach (string word in words)
+                        {
+                            wordBuffer.Push(word);
+
+                            string wordUp = word.ToUpper();
+
+                            if (word.ToUpper() == "BOB")
+                            {
+                                isProcessing = true;
+                                toDisplay = "BOB ACTIVATED";
+                            } 
+                            else if (word.ToUpper() == "STOP")
+                            {
+                                isProcessing = false;
+                                toDisplay = "BOB DEACTIVATED";
+                            }
+                            else if (isProcessing)
+                            {
+                                foreach (KeyValuePair<string, string[]> kvp in actionMappings)
+                                {
+                                    if (wordUp != null && kvp.Value.Contains(wordUp))
+                                    {
+                                        //actionEvent(kvp.Key);
+                                        toDisplay = kvp.Key;
+                                    }
+                                }
+                            }
+                        }
+
+                        lastBlock = words;
+                        //ResultsField.text = words[words.Length - 1];
+                        ResultsField.text = toDisplay;
                     }
 
                     if (res.keywords_result != null && res.keywords_result.keyword != null)
