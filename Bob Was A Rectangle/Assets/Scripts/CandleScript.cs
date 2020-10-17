@@ -5,8 +5,11 @@ using UnityEngine;
 public class CandleScript : MonoBehaviour
 {
     private Light candlelight;
+    private AudioSource sound;
+    [SerializeField] AudioClip candleLightingSound;
     private void Awake()
     {
+        sound = gameObject.GetComponent<AudioSource>();
         candlelight = transform.GetChild(1).gameObject.GetComponent<Light>();
     }
     // Start is called before the first frame update
@@ -30,6 +33,8 @@ public class CandleScript : MonoBehaviour
 
     public void Light()
     {
+        sound.clip = candleLightingSound;
+        sound.Play();
         candlelight.gameObject.SetActive(true);
     }
 
