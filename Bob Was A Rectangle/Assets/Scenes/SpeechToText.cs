@@ -61,9 +61,13 @@ namespace IBM.Watsson.Examples
         private int _recordingBufferSize = 1;
         private int _recordingHZ = 22050;
 
-        private Stack<string> wordBuffer = new Stack<string>();
+        //private Stack<string> wordBuffer = new Stack<string>();
+        private List<string> wordBuffer = new List<string>();
         private string[] lastBlock = new string[0];
         private bool isProcessing = false;
+        private int instructionsProcessed = 0;
+        private int wordsSinceLastInstruction = 0;
+        private int stringDifferenceLimit = 4;
         private readonly Dictionary<string, string[]> actionMappings = new Dictionary<string, string[]>()
         {
             {"LEFT" , new string[] {"LEFT", "WEST", "LEFTWARD", "LEFTWARDS", "WESTERLY", "WESTWARDS", "WESTWARD", "PORT", "PORTSIDE"}}, 
@@ -73,6 +77,9 @@ namespace IBM.Watsson.Examples
             {"PULL" , new string[] {"PULL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
             {"OPEN" , new string[] {"OPEN", "UNLOCK"}}
         };
+
+        private string lastInstruction;
+
         private SpeechToTextService _service;
 
         void Start()
@@ -217,6 +224,8 @@ namespace IBM.Watsson.Examples
             yield break;
         }
 
+        private string lastTranscript = "";
+        
         private void OnRecognize(SpeechRecognitionEvent result)
         {
             if (result != null && result.results.Length > 0)
@@ -225,49 +234,60 @@ namespace IBM.Watsson.Examples
                 {
                     foreach (var alt in res.alternatives)
                     {
-                        string text = string.Format("{0}", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
+                        string text = string.Format("{0} ({1}, {2})", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
                         string toDisplay = "NO INSTRUC";
                         Log.Debug("ExampleStreaming.OnRecognize()", text);
-                        string[] words = text.Split(' ');
+                        string[] words = alt.transcript.Split(' ');
+                        words = words.Take(words.Count() - 1).ToArray();
 
-                        for (int i = 0; i < lastBlock.Length; i++)
-                        {
-                            wordBuffer.Pop();
+                        if (!res.final | alt.confidence < 0.5) {
+                            continue;
                         }
-                        foreach (string word in words)
-                        {
-                            wordBuffer.Push(word);
 
+                        /*
+                        int wordsDiffSum = 0;
+
+                        for (int i = 0; i < System.Math.Min(words.Length, lastBlock.Length); i++)
+                        {
+                            wordsDiffSum += GetStringDifference(words[i], lastBlock[i]);
+                        }
+
+                        if (wordsDiffSum > stringDifferenceLimit)
+                        {
+                            wordBuffer.AddRange(words);
+                        }
+                        else
+                        {
+                            wordBuffer.RemoveRange(wordBuffer.Count - lastBlock.Length, lastBlock.Length);
+                            wordBuffer.AddRange(words);
+                        }
+                        */
+
+                        foreach (string word in words) {
                             string wordUp = word.ToUpper();
 
-                            if (word.ToUpper() == "BOB")
-                            {
+                            if (wordUp == "BOB") {
                                 isProcessing = true;
                                 toDisplay = "BOB ACTIVATED";
-                            } 
-                            else if (word.ToUpper() == "STOP")
-                            {
+                            }
+                            else if (wordUp == "STOP") {
                                 isProcessing = false;
                                 toDisplay = "BOB DEACTIVATED";
                             }
-                            else if (isProcessing)
-                            {
-                                foreach (KeyValuePair<string, string[]> kvp in actionMappings)
-                                {
-                                    if (wordUp != null && kvp.Value.Contains(wordUp))
-                                    {
-                                        if (actionEvent != null)
-                                        {
+                            else if (isProcessing) {
+                                foreach (KeyValuePair<string, string[]> kvp in actionMappings) {
+                                    if (wordUp != null && kvp.Value.Contains(wordUp)) {
+                                        if (actionEvent != null) {
                                             actionEvent(kvp.Key);
                                         }
-                                        toDisplay = kvp.Key;
+                                        toDisplay = kvp.Key + instructionsProcessed;
+                                        instructionsProcessed += 1;
                                     }
                                 }
                             }
                         }
-
+                        
                         lastBlock = words;
-                        //ResultsField.text = words[words.Length - 1];
                         ResultsField.text = toDisplay;
                     }
 
@@ -301,6 +321,70 @@ namespace IBM.Watsson.Examples
                     Log.Debug("ExampleStreaming.OnRecognizeSpeaker()", string.Format("speaker result: {0} | confidence: {3} | from: {1} | to: {2}", labelResult.speaker, labelResult.from, labelResult.to, labelResult.confidence));
                 }
             }
+        }
+
+        //credits to https://stackoverflow.com/questions/6944056/c-sharp-compare-string-similarity
+        public static int GetStringDifference(string s, string t)
+        {
+            if (string.IsNullOrEmpty(s) & string.IsNullOrEmpty(t))
+            {
+                return 0;
+            }
+            else if (string.IsNullOrEmpty(s))
+            {
+                throw new System.ArgumentNullException(t, "String Cannot Be Null Or Empty");
+            }
+            else if (string.IsNullOrEmpty(t))
+            {
+                throw new System.ArgumentNullException(t, "String Cannot Be Null Or Empty");
+            }
+
+            int n = s.Length; // length of s
+            int m = t.Length; // length of t
+
+            if (n == 0)
+            {
+                return m;
+            }
+
+            if (m == 0)
+            {
+                return n;
+            }
+
+            int[] p = new int[n + 1]; //'previous' cost array, horizontally
+            int[] d = new int[n + 1]; // cost array, horizontally
+
+            // indexes into strings s and t
+            int i; // iterates through s
+            int j; // iterates through t
+
+            for (i = 0; i <= n; i++)
+            {
+                p[i] = i;
+            }
+
+            for (j = 1; j <= m; j++)
+            {
+                char tJ = t[j - 1]; // jth character of t
+                d[0] = j;
+
+                for (i = 1; i <= n; i++)
+                {
+                    int cost = s[i - 1] == tJ ? 0 : 1; // cost
+                    // minimum of cell to the left+1, to the top+1, diagonally left and up +cost                
+                    d[i] = System.Math.Min(System.Math.Min(d[i - 1] + 1, p[i] + 1), p[i - 1] + cost);
+                }
+
+                // copy current distance counts to 'previous row' distance counts
+                int[] dPlaceholder = p; //placeholder to assist in swapping p and d
+                p = d;
+                d = dPlaceholder;
+            }
+
+            // our last action in the above loop was to switch d and p, so p now 
+            // actually has the most recent cost counts
+            return p[n];
         }
     }
 }
