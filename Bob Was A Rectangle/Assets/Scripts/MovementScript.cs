@@ -34,9 +34,9 @@ public class MovementScript : MonoBehaviour
         if (!isMoving)
         {
             isMoving = true;
-            yield return MoveVertical(true);
+            //yield return MoveVertical(true);
             yield return MoveHorizonal(direction);
-            yield return MoveVertical(false);
+            //yield return MoveVertical(false);
             isMoving = false;
         }
     }
