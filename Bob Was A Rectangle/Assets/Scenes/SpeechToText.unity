@@ -543,8 +543,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1646685151}
   - component: {fileID: 1646685150}
+  - component: {fileID: 1646685152}
   m_Layer: 0
-  m_Name: ExampleStreaming
+  m_Name: SpeechToText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,7 +558,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646685149}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dffcb047c29a9d04fbe134c6109b2c22, type: 3}
   m_Name: 
@@ -580,6 +581,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1646685152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646685149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbebc7d75129cb249977087712f49314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serviceUrl: https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/85f73230-facc-4428-b49f-d8d40342c06f
+  ResultsField: {fileID: 1863902092}
+  _iamApikey: mKrag0vGLmLCDGpJOQPAuBccv37SZOEOTv52avNOKbwY
+  _recognizeModel: 
 --- !u!1 &1863902089
 GameObject:
   m_ObjectHideFlags: 0
