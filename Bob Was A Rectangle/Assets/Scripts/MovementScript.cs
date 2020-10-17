@@ -68,37 +68,56 @@ public class MovementScript : MonoBehaviour
     protected IEnumerator MoveHorizonal(MoveDirection direction)
     {
         Vector3 position = transform.position;
+        Vector3 dir;
+        RaycastHit rayInfo;
+        bool inTheWay;
         switch (direction)
         {
             case MoveDirection.NORTH:
+                dir = Vector3.forward;
+                inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
+                if (inTheWay)
+                    break;
                 position.z += movementAmount;
                 while (position.z - transform.position.z > 0.01f)
                 {
-                    transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed, Space.World);
+                    transform.Translate(dir * Time.deltaTime * moveSpeed, Space.World);
                     yield return null;
                 }
                 break;
             case MoveDirection.SOUTH:
+                dir = Vector3.back;
+                inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
+                if (inTheWay)
+                    break;
                 position.z -= movementAmount;
                 while (transform.position.z - position.z > 0.01f)
                 {
-                    transform.Translate(Vector3.back * Time.deltaTime * moveSpeed, Space.World);
+                    transform.Translate(dir * Time.deltaTime * moveSpeed, Space.World);
                     yield return null;
                 }
                 break;
             case MoveDirection.EAST:
+                dir = Vector3.right;
+                inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
+                if (inTheWay)
+                    break;
                 position.x += movementAmount;
                 while (position.x - transform.position.x > 0.01f)
                 {
-                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed, Space.World);
+                    transform.Translate(dir * Time.deltaTime * moveSpeed, Space.World);
                     yield return null;
                 }
                 break;
             case MoveDirection.WEST:
+                dir = Vector3.left;
+                inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
+                if (inTheWay)
+                    break;
                 position.x -= movementAmount;
                 while (transform.position.x - position.x > 0.01f)
                 {
-                    transform.Translate(Vector3.left * Time.deltaTime * moveSpeed, Space.World);
+                    transform.Translate(dir * Time.deltaTime * moveSpeed, Space.World);
                     yield return null;
                 }
                 break;

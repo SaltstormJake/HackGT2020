@@ -6,6 +6,7 @@ public class DoorScript : MonoBehaviour
 {
     private bool isOpen = false;
     private bool isMoving = false;
+    private bool playerInDoor = false;
     [SerializeField] float doorSpeed = 1.0f;
     KeyCode testKey = KeyCode.F1;
     // Start is called before the first frame update
@@ -13,6 +14,7 @@ public class DoorScript : MonoBehaviour
     {
         isOpen = false;
         isMoving = false;
+        playerInDoor = false;
     }
 
     // Update is called once per frame
@@ -24,8 +26,7 @@ public class DoorScript : MonoBehaviour
 
     public void UseDoor()
     {
-        //print("opening");
-        if (!isMoving)
+        if (!isMoving && !playerInDoor)
         {
             if (isOpen)
                 StartCoroutine(CloseDoor());
@@ -64,5 +65,10 @@ public class DoorScript : MonoBehaviour
         transform.eulerAngles = newRot;
         isOpen = false;
         isMoving = false;
+    }
+
+    public void SwitchOpening(bool value)
+    {
+        playerInDoor = value;
     }
 }
