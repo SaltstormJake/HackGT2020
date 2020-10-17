@@ -35,6 +35,18 @@ public class DoorScript : MonoBehaviour
         }
     }
 
+    public void Open()
+    {
+        if (!isMoving && !playerInDoor)
+            StartCoroutine(OpenDoor());
+    }
+
+    public void Close()
+    {
+        if (!isMoving && !playerInDoor)
+            StartCoroutine(CloseDoor());
+    }
+
     private IEnumerator OpenDoor()
     {
         isMoving = true;

@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
-    [SerializeField] float movementAmount = 1;
+    [SerializeField] float movementAmount = 0.25f;
     [SerializeField] float jumpHeight = 0.5f;
     [SerializeField] float moveSpeed = 1;
+    [SerializeField] float buffer = 0.1f;
     private bool isMoving = false;
     protected enum MoveDirection
     {
@@ -74,7 +75,7 @@ public class MovementScript : MonoBehaviour
         switch (direction)
         {
             case MoveDirection.NORTH:
-                dir = Vector3.up;
+                dir = Vector3.up * (movementAmount + buffer);
                 inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
                 if (inTheWay)
                     break;
@@ -86,7 +87,7 @@ public class MovementScript : MonoBehaviour
                 }
                 break;
             case MoveDirection.SOUTH:
-                dir = Vector3.down;
+                dir = Vector3.down * (movementAmount + buffer);
                 inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
                 if (inTheWay)
                     break;
@@ -98,7 +99,7 @@ public class MovementScript : MonoBehaviour
                 }
                 break;
             case MoveDirection.EAST:
-                dir = Vector3.right;
+                dir = Vector3.right * (movementAmount + buffer);
                 inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
                 if (inTheWay)
                     break;
@@ -110,7 +111,7 @@ public class MovementScript : MonoBehaviour
                 }
                 break;
             case MoveDirection.WEST:
-                dir = Vector3.left;
+                dir = Vector3.left * (movementAmount + buffer);
                 inTheWay = Physics.Linecast(transform.position, transform.position + dir, out rayInfo);
                 if (inTheWay)
                     break;

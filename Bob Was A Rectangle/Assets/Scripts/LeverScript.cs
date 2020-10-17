@@ -23,7 +23,7 @@ public class LeverScript : MonoBehaviour
         
     }
 
-    void PullLever()
+    public void PullLever()
     {
         if (!pulled)
         {
@@ -64,8 +64,8 @@ public class LeverScript : MonoBehaviour
                 target.gameObject.transform.Translate(dir * Time.deltaTime * moveObjectSpeed, Space.World);
                 yield return null;
             }
-            dir = new Vector3(0, 0, destination.y - target.gameObject.transform.position.z);
-            while (Mathf.Abs(destination.y - target.gameObject.transform.position.z) > 0.1f)
+            dir = new Vector3(0, 0, destination.y - target.gameObject.transform.position.y);
+            while (Mathf.Abs(destination.y - target.gameObject.transform.position.y) > 0.1f)
             {
                 target.gameObject.transform.Translate(dir * Time.deltaTime * moveObjectSpeed, Space.World);
                 yield return null;
@@ -73,8 +73,8 @@ public class LeverScript : MonoBehaviour
         }
         else
         {
-            Vector3 dir = new Vector3(0, 0, destination.y - target.gameObject.transform.position.z);
-            while(Mathf.Abs(destination.y - target.gameObject.transform.position.z) > 0.1f)
+            Vector3 dir = new Vector3(0, 0, destination.y - target.gameObject.transform.position.y);
+            while(Mathf.Abs(destination.y - target.gameObject.transform.position.y) > 0.1f)
             {
                 target.gameObject.transform.Translate(dir * Time.deltaTime * moveObjectSpeed, Space.World);
                 yield return null;
@@ -86,5 +86,11 @@ public class LeverScript : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+            PullLever();
     }
 }
