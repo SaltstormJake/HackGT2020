@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
-    [SerializeField] float movementAmount = 1;
+    [SerializeField] float movementAmount = 0.25f;
     [SerializeField] float jumpHeight = 0.5f;
     [SerializeField] float moveSpeed = 1;
     private bool isMoving = false;
