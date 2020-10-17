@@ -209,9 +209,11 @@ namespace IBM.Watsson.Examples
                 {
                     foreach (var alt in res.alternatives)
                     {
-                        string text = string.Format("{0} ({1}, {2:0.00})\n", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
+                        string text = string.Format("{0}\n", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
                         Log.Debug("ExampleStreaming.OnRecognize()", text);
-                        ResultsField.text = text;
+                        string[] words = text.Split(' ');
+                        ResultsField.text = words[words.Length - 2];
+                        //ResultsField.text = string.Join(" ", words);
                     }
 
                     if (res.keywords_result != null && res.keywords_result.keyword != null)
