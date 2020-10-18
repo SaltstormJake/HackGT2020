@@ -8,6 +8,7 @@ TagManager:
   - TutorialPanel
   - HowToPlayPanel
   - MenuPanel
+  - LevelFinishScreenOnly
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GoalScript : MonoBehaviour
 {
 
-    [SerializeField] Scene nextScene;
+    [SerializeField] LevelCompleteScreenScript levelComplete = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +18,9 @@ public class GoalScript : MonoBehaviour
         
     }
 
-    void NextScene()
+    private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(nextScene.name);
+        if (other.gameObject.tag == "Player")
+            levelComplete.SetAll(true);
     }
-
 }
