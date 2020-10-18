@@ -88,7 +88,7 @@ namespace WatsonIntegration
             {"DOWN" , new string[] {"DOWN", "DOWNWARD", "DOWNWARDS", "SOUTH", "SOUTHWARD", "SOUTHWARDS", "SOUTHERLY", "BACKWARDS", "STERN", "STERNWARD", "STERNWARDS"}},
             {"PULL" , new string[] {"PULL", "PAUL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
             {"OPEN" , new string[] {"OPEN", "UNLOCK"}},
-            {"LIGHT" , new string[] {"LIGHT"}}
+            {"LIGHT" , new string[] {"LIGHT", "LIGHTS"}}
         };
 
         private SpeechToTextService _service;
