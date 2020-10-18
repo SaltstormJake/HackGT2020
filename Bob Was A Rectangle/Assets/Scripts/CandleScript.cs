@@ -9,6 +9,7 @@ public class CandleScript : MonoBehaviour
     [SerializeField] AudioClip candleLightingSound = null;
     [SerializeField] float candleIntensity = 1.0f;
     [SerializeField] float candleRange = 100.0f;
+    [SerializeField] AudioClip candleOutSound = null;
     private void Awake()
     {
         sound = gameObject.GetComponent<AudioSource>();
@@ -17,8 +18,7 @@ public class CandleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        candlelight.gameObject.SetActive(false);
-        candlelight.intensity = candleIntensity;
+        StartCoroutine(CandleInterval(2.0f));
     }
 
     // Update is called once per frame
