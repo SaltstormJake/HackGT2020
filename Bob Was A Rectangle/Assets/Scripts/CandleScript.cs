@@ -10,6 +10,9 @@ public class CandleScript : MonoBehaviour
     [SerializeField] float candleIntensity = 1.0f;
     [SerializeField] float candleRange = 100.0f;
     [SerializeField] AudioClip candleOutSound = null;
+    [SerializeField] GameObject darkness = null;
+
+    private bool lit = false;
     private void Awake()
     {
         sound = gameObject.GetComponent<AudioSource>();
@@ -28,24 +31,39 @@ public class CandleScript : MonoBehaviour
         candlelight.intensity = candleIntensity;
     }
 
-    public IEnumerator CandleInterval(float t)
+    public IEnumerator CandleInterval(float t = 2.0f)
     {
-        Light();
-        yield return new WaitForSeconds(t);
-        Extinguish();
+        Debug.Log("Lighting");
+
+        if (!lit)
+        {
+            Light();
+            yield return new WaitForSeconds(t);
+            Extinguish();
+        }
     }
 
     public void Light()
     {
-        sound.clip = candleLightingSound;
-        sound.Play();
-        candlelight.gameObject.SetActive(true);
+        if (!lit)
+        {
+            darkness.SetActive(false);
+            sound.clip = candleLightingSound;
+            sound.Play();
+            candlelight.gameObject.SetActive(true);
+            lit = true;
+        }
     }
 
     public void Extinguish()
     {
-        sound.clip = candleOutSound;
-        sound.Play();
-        candlelight.gameObject.SetActive(false);
+        if (lit)
+        {
+            darkness.SetActive(true);
+            sound.clip = candleOutSound;
+            sound.Play();
+            candlelight.gameObject.SetActive(false);
+            lit = false;
+        }
     }
 }

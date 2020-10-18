@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class DoorVoiceScript : MonoBehaviour
 {
+    string command;
+    DoorScript door;
+
+    private void Awake()
+    {
+        door = gameObject.GetComponent<DoorScript>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +22,16 @@ public class DoorVoiceScript : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        command = "";
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        command = "";
+    }
+
+
 }
