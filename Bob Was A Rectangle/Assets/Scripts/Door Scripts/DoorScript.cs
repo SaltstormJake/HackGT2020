@@ -8,7 +8,6 @@ public class DoorScript : MonoBehaviour
     private bool isMoving = false;
     private bool playerInDoor = false;
     [SerializeField] float doorSpeed = 1.0f;
-    KeyCode testKey = KeyCode.F1;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +19,7 @@ public class DoorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(testKey))
-            UseDoor();
+
     }
 
     public void UseDoor()
