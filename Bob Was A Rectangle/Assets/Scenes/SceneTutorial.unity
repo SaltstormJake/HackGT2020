@@ -413,10 +413,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ffde2382a24f142b99b4fa50d0be11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementAmount: 0.25
+  movementAmount: 0.5
   jumpHeight: 0.5
-  moveSpeed: 0.25
-  buffer: 0.1
+  moveSpeed: 2.5
+  buffer: 0.45
 --- !u!50 &279900281
 Rigidbody2D:
   serializedVersion: 4
