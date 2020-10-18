@@ -33,7 +33,8 @@ public class LevelCompleteScreenScript : MonoBehaviour
 
     public void SetAll(bool active)
     {
-        panel.SetActive(active);
+        SceneManager.LoadScene(nextLevel);
+        //panel.SetActive(active);
 
         /*GameObject[] menuObjects = GameObject.FindGameObjectsWithTag("LevelFinishScreenOnly");
         foreach (GameObject g in menuObjects)

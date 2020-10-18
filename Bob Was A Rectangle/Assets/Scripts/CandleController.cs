@@ -9,10 +9,6 @@ public class CandleController : MonoBehaviour
     [SerializeField] 
     GameObject darkness;
 
-    public void Start() {
-        DontDestroyOnLoad(candleController);
-    }
-
     public void LightAll()
     {
         /*for (int i = 0; i < candleController.gameObject.transform.GetChildCount(); i++)

@@ -109,7 +109,6 @@ namespace WatsonIntegration
             }
             if (candleController != null) {
                 lightEvent += candleController.LightAll;
-                DontDestroyOnLoad(candleController);
             }
         }
 
