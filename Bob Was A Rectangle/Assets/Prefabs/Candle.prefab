@@ -236,6 +236,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   candlelight: {fileID: 4991919552679109587}
   candleLightingSound: {fileID: 8300000, guid: 870979ea56499b9428a2071f6274762c, type: 3}
+  candleIntensity: 1
+  candleRange: 100
+  candleOutSound: {fileID: 8300000, guid: 7a5e4a0302936384bac643aa3fd349fe, type: 3}
 --- !u!82 &7874557878605457451
 AudioSource:
   m_ObjectHideFlags: 0
