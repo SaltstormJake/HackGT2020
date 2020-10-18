@@ -13,7 +13,8 @@ public class ControlledPlayerScript : MovementScript
     // Start is called before the first frame update
     void Start()
     {
-        
+        PausePanel.SetActive(false);
+        HowToPlay.SetActive(false);
     }
 
     // Update is called once per frame
