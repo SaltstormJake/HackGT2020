@@ -101,9 +101,15 @@ namespace WatsonIntegration
             LogSystem.InstallDefaultReactors();
             Runnable.Run(CreateService());
 
-            actionEvent += objectRecognition.SetCommand;
-            goalEvent += controlledGoal.ProcessVoiceCommand;
-            lightEvent += candleController.LightAll;
+            if (objectRecognition != null) {
+                actionEvent += objectRecognition.SetCommand;
+            }
+            if (controlledGoal != null) {
+                goalEvent += controlledGoal.ProcessVoiceCommand;
+            }
+            if (candleController != null) {
+                lightEvent += candleController.LightAll;
+            }
         }
 
         private IEnumerator CreateService()
@@ -299,11 +305,9 @@ namespace WatsonIntegration
                                         {
                                             lightEvent();
                                         }
-
                                         toDisplay = kvp.Key;
                                     }
                                 }
-                                
                             }
                         }
                         
