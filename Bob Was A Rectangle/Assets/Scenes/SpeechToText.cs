@@ -89,7 +89,7 @@ namespace WatsonIntegration
             {"RIGHT" , new string[] {"RIGHT", "EAST", "RIGHTWARDS", "RIGHTWARD", "EASTERLY", "EASTWARD", "EASTWARDS", "STARBOARD"}},
             {"UP" , new string[] {"UP", "UPWARDS", "UPWARD", "NORTH", "NORTHWARD", "NORTHWARDS", "FORWARD", "FORWARDS"}},
             {"DOWN" , new string[] {"DOWN", "DOWNWARD", "DOWNWARDS", "SOUTH", "SOUTHWARD", "SOUTHWARDS", "SOUTHERLY", "BACKWARDS", "STERN", "STERNWARD", "STERNWARDS"}},
-            {"PULL" , new string[] {"PULL", "PAUL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
+            {"PULL" , new string[] {"PULL", "PUSH", "GRAB", "PAUL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
             {"OPEN" , new string[] {"OPEN", "UNLOCK"}},
             {"LIGHT" , new string[] {"LIGHT", "LIGHTS"}}
         };
