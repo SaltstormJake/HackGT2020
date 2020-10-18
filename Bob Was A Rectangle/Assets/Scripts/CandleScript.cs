@@ -44,6 +44,8 @@ public class CandleScript : MonoBehaviour
 
     public void Extinguish()
     {
+        sound.clip = candleOutSound;
+        sound.Play();
         candlelight.gameObject.SetActive(false);
     }
 }
