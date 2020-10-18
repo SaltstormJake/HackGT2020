@@ -17,12 +17,12 @@ public class DarknessScript : MonoBehaviour
         
     }
 
-    void Darkness()
+    public void Darkness()
     {
         RenderSettings.ambientLight = Color.black;
     }
 
-    void Light()
+    public void Light()
     {
         RenderSettings.ambientLight = lightColor;
     }
