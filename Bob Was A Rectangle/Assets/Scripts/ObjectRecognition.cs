@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ObjectRecognition : MonoBehaviour
 {
+    [SerializeField] LevelCompleteScreenScript levelComplete = null;
+
     string command;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         command = "";
+        if (other.gameObject.tag == "Finish")
+        {
+            levelComplete.SetAll(true);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
