@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e62df50117adc4c8015f359f925a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  candlelight: {fileID: 0}
-  candleLightingSound: {fileID: 0}
+  candlelight: {fileID: 4991919552679109587}
+  candleLightingSound: {fileID: 8300000, guid: 870979ea56499b9428a2071f6274762c, type: 3}
 --- !u!82 &7874557878605457451
 AudioSource:
   m_ObjectHideFlags: 0
