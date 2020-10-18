@@ -63,6 +63,9 @@ namespace WatsonIntegration
         public delegate void ActionEvent(string actionName);
         public static event ActionEvent actionEvent;
 
+        public delegate void GoalEvent(string goalName);
+        public static event GoalEvent goalEvent;
+
         public delegate void LightEvent();
         public static event LightEvent lightEvent;
 
@@ -99,7 +102,7 @@ namespace WatsonIntegration
             Runnable.Run(CreateService());
 
             actionEvent += objectRecognition.SetCommand;
-            actionEvent += controlledGoal.ProcessVoiceCommand;
+            goalEvent += controlledGoal.ProcessVoiceCommand;
             lightEvent += candleController.LightAll;
         }
 
@@ -285,16 +288,22 @@ namespace WatsonIntegration
                             else if (isProcessing) {
                                 foreach (KeyValuePair<string, string[]> kvp in actionMappings) {
                                     if (wordUp != null && kvp.Value.Contains(wordUp)) {
-                                        if (actionEvent != null) {
+                                        if (actionEvent != null && wordUp == "OPEN" || wordUp == "PULL") {
                                             actionEvent(kvp.Key);
                                         }
+                                        if (goalEvent != null && wordUp == "UP" || wordUp == "LEFT" || wordUp == "DOWN" || wordUp == "RIGHT")
+                                        {
+                                            goalEvent(kvp.Key);
+                                        }
+                                        if (lightEvent != null && wordUp == "LIGHT")
+                                        {
+                                            lightEvent();
+                                        }
+
                                         toDisplay = kvp.Key;
                                     }
                                 }
-                                if (lightEvent != null)
-                                {
-                                    lightEvent();
-                                }
+                                
                             }
                         }
                         
