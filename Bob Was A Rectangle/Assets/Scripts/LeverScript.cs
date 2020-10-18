@@ -64,7 +64,7 @@ public class LeverScript : MonoBehaviour
                 target.gameObject.transform.Translate(dir * Time.deltaTime * moveObjectSpeed, Space.World);
                 yield return null;
             }
-            dir = new Vector3(0, 0, destination.y - target.gameObject.transform.position.y);
+            dir = new Vector3(0, destination.y - target.gameObject.transform.position.y, 0);
             while (Mathf.Abs(destination.y - target.gameObject.transform.position.y) > 0.1f)
             {
                 target.gameObject.transform.Translate(dir * Time.deltaTime * moveObjectSpeed, Space.World);
@@ -73,7 +73,7 @@ public class LeverScript : MonoBehaviour
         }
         else
         {
-            Vector3 dir = new Vector3(0, 0, destination.y - target.gameObject.transform.position.y);
+            Vector3 dir = new Vector3(0, destination.y - target.gameObject.transform.position.y, 0);
             while(Mathf.Abs(destination.y - target.gameObject.transform.position.y) > 0.1f)
             {
                 target.gameObject.transform.Translate(dir * Time.deltaTime * moveObjectSpeed, Space.World);
