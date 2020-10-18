@@ -33,8 +33,6 @@ public class CandleScript : MonoBehaviour
 
     public IEnumerator CandleInterval(float t = 2.0f)
     {
-        Debug.Log("Lighting");
-
         if (!lit)
         {
             Light();
