@@ -38,7 +38,7 @@ public class ControlledPlayerScript : MovementScript
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Application.LoadLevel(Application.loadedLevel);
         PausePanel.SetActive(false);
     }
 
