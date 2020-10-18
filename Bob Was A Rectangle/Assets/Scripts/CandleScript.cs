@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CandleScript : MonoBehaviour
 {
-    private Light candlelight;
-    private AudioSource sound;
-    [SerializeField] AudioClip candleLightingSound;
+    private Light candlelight = null;
+    private AudioSource sound = null;
+    [SerializeField] AudioClip candleLightingSound = null;
     private void Awake()
     {
         sound = gameObject.GetComponent<AudioSource>();

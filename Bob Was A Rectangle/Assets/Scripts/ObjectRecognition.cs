@@ -8,7 +8,6 @@ public class ObjectRecognition : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.tag.ToString());
 
         if (other.gameObject.tag == "Door" && command == "OPEN")
         {

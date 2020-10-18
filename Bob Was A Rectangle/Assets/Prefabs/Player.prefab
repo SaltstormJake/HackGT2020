@@ -99,7 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementAmount: 1
   jumpHeight: 0.5
-  moveSpeed: 1
+  moveSpeed: 2.5
+  buffer: 0.45
 --- !u!58 &2109126877969653074
 CircleCollider2D:
   m_ObjectHideFlags: 0
