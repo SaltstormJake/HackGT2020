@@ -380,24 +380,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199819183}
   m_CullTransparentMesh: 0
---- !u!1 &279900279 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6102480909436043806, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
-  m_PrefabInstance: {fileID: 6102480909775055289}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &279900280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279900279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 024d847dc277c9d4aa270d48c46bb0f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelComplete: {fileID: 794534745}
 --- !u!1 &345020105
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,6 +2108,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 279900280, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
+      propertyPath: levelComplete
+      value: 
+      objectReference: {fileID: 794534745}
     - target: {fileID: 6102480909436043794, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5
