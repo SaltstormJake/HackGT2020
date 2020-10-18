@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0180060d7a3801445a332f0a803f53c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelButton: {fileID: 0}
+  nextLevelButton: {fileID: 4320829513816684031}
   mainMenuButton: {fileID: 454366028690330714}
   nextLevel: 
   mainMenu: MainMenu
