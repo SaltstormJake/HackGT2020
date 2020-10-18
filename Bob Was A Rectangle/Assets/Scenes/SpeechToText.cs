@@ -28,7 +28,7 @@ using IBM.Cloud.SDK.Authentication.Iam;
 using IBM.Cloud.SDK.Utilities;
 using IBM.Cloud.SDK.DataTypes;
 
-namespace IBM.Watsson.Examples
+namespace WatsonIntegration
 {
     public class SpeechToText : MonoBehaviour
     {
@@ -54,6 +54,8 @@ namespace IBM.Watsson.Examples
         public delegate void ActionEvent(string actionName);
         public static event ActionEvent actionEvent;
 
+        public delegate void TextRecordedEvent(string text);
+        public static event TextRecordedEvent textRecordedEvent;
 
         private int _recordingRoutine = 0;
         private string _microphoneID = null;
@@ -62,12 +64,10 @@ namespace IBM.Watsson.Examples
         private int _recordingHZ = 22050;
 
         //private Stack<string> wordBuffer = new Stack<string>();
-        private List<string> wordBuffer = new List<string>();
+        private string recordedText = "";
+        private int textTranscribeLengthLimit = 400;
         private string[] lastBlock = new string[0];
         private bool isProcessing = false;
-        private int instructionsProcessed = 0;
-        private int wordsSinceLastInstruction = 0;
-        private int stringDifferenceLimit = 4;
         private readonly Dictionary<string, string[]> actionMappings = new Dictionary<string, string[]>()
         {
             {"LEFT" , new string[] {"LEFT", "WEST", "LEFTWARD", "LEFTWARDS", "WESTERLY", "WESTWARDS", "WESTWARD", "PORT", "PORTSIDE"}}, 
@@ -77,8 +77,6 @@ namespace IBM.Watsson.Examples
             {"PULL" , new string[] {"PULL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
             {"OPEN" , new string[] {"OPEN", "UNLOCK"}}
         };
-
-        private string lastInstruction;
 
         private SpeechToTextService _service;
 
@@ -240,28 +238,18 @@ namespace IBM.Watsson.Examples
                         string[] words = alt.transcript.Split(' ');
                         words = words.Take(words.Count() - 1).ToArray();
 
-                        if (!res.final | alt.confidence < 0.5) {
+                        if (!res.final | alt.confidence < 0.4) {
                             continue;
                         }
 
-                        /*
-                        int wordsDiffSum = 0;
+                        recordedText += alt.transcript + ". ";
 
-                        for (int i = 0; i < System.Math.Min(words.Length, lastBlock.Length); i++)
-                        {
-                            wordsDiffSum += GetStringDifference(words[i], lastBlock[i]);
+                        if (recordedText.Length > textTranscribeLengthLimit) {
+                            if (textRecordedEvent != null) {
+                                textRecordedEvent(recordedText);
+                            }
+                            recordedText = "";
                         }
-
-                        if (wordsDiffSum > stringDifferenceLimit)
-                        {
-                            wordBuffer.AddRange(words);
-                        }
-                        else
-                        {
-                            wordBuffer.RemoveRange(wordBuffer.Count - lastBlock.Length, lastBlock.Length);
-                            wordBuffer.AddRange(words);
-                        }
-                        */
 
                         foreach (string word in words) {
                             string wordUp = word.ToUpper();
@@ -273,6 +261,9 @@ namespace IBM.Watsson.Examples
                             else if (wordUp == "STOP") {
                                 isProcessing = false;
                                 toDisplay = "BOB DEACTIVATED";
+                                if (actionEvent != null) {
+                                    actionEvent("STOP");
+                                }
                             }
                             else if (isProcessing) {
                                 foreach (KeyValuePair<string, string[]> kvp in actionMappings) {
@@ -280,8 +271,7 @@ namespace IBM.Watsson.Examples
                                         if (actionEvent != null) {
                                             actionEvent(kvp.Key);
                                         }
-                                        toDisplay = kvp.Key + instructionsProcessed;
-                                        instructionsProcessed += 1;
+                                        toDisplay = kvp.Key;
                                     }
                                 }
                             }
