@@ -128,32 +128,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1590080700618976711, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
   m_PrefabInstance: {fileID: 227088016}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &68481050
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68481049}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &68481051
 Rigidbody2D:
   serializedVersion: 4
@@ -356,10 +330,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4640746254511487516, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1590080700618976711, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
       propertyPath: m_Name
       value: Lever
@@ -424,6 +394,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5515457397015535500, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
+      propertyPath: m_Radius
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7130159436139189803, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
       propertyPath: m_Center.x
       value: 0
@@ -437,7 +411,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -4640746254511487516, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 8968051fce3ddb24ab3ea3860354dfcd, type: 3}
 --- !u!1 &303222620
 GameObject:
