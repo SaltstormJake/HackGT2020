@@ -9,6 +9,7 @@ public class LevelCompleteScreenScript : MonoBehaviour
     [SerializeField] private Button mainMenuButton = null;
     [SerializeField] string nextLevel = null;
     [SerializeField] string mainMenu = null;
+    [SerializeField] GameObject panel;
     private void Awake()
     {
         nextLevelButton.onClick.AddListener(OnClickNextLevel);
@@ -17,7 +18,7 @@ public class LevelCompleteScreenScript : MonoBehaviour
 
     private void Start()
     {
-        SetAll(false);
+        panel.SetActive(false);
     }
 
     void OnClickNextLevel()
@@ -32,9 +33,11 @@ public class LevelCompleteScreenScript : MonoBehaviour
 
     public void SetAll(bool active)
     {
-        GameObject[] menuObjects = GameObject.FindGameObjectsWithTag("LevelFinishScreenOnly");
+        panel.SetActive(active);
+
+        /*GameObject[] menuObjects = GameObject.FindGameObjectsWithTag("LevelFinishScreenOnly");
         foreach (GameObject g in menuObjects)
-            g.SetActive(active);
+            g.SetActive(active);*/
     }
 
 }
