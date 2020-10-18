@@ -47,6 +47,9 @@ namespace WatsonIntegration
         [SerializeField]
         ObjectRecognition objectRecognition;
 
+        [SerializeField]
+        ControlledGoalScript controlledGoal;
+
         [Header("Parameters")]
         // https://www.ibm.com/watson/developercloud/speech-to-text/api/v1/curl.html?curl#get-model
         [Tooltip("The Model to use. This defaults to en-US_BroadbandModel")]
@@ -77,7 +80,7 @@ namespace WatsonIntegration
             {"RIGHT" , new string[] {"RIGHT", "EAST", "RIGHTWARDS", "RIGHTWARD", "EASTERLY", "EASTWARD", "EASTWARDS", "STARBOARD"}},
             {"UP" , new string[] {"UP", "UPWARDS", "UPWARD", "NORTH", "NORTHWARD", "NORTHWARDS", "FORWARD", "FORWARDS"}},
             {"DOWN" , new string[] {"DOWN", "DOWNWARD", "DOWNWARDS", "SOUTH", "SOUTHWARD", "SOUTHWARDS", "SOUTHERLY", "BACKWARDS", "STERN", "STERNWARD", "STERNWARDS"}},
-            {"PULL" , new string[] {"PULL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
+            {"PULL" , new string[] {"PULL", "PAUL", "POLL", "YANK", "TUG", "HEAVE", "LUG"}},
             {"OPEN" , new string[] {"OPEN", "UNLOCK"}}
         };
 
@@ -89,6 +92,7 @@ namespace WatsonIntegration
             Runnable.Run(CreateService());
 
             actionEvent += objectRecognition.SetCommand;
+            actionEvent += controlledGoal.ProcessVoiceCommand;
         }
 
         private IEnumerator CreateService()
