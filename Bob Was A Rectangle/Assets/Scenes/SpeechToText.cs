@@ -288,14 +288,14 @@ namespace WatsonIntegration
                             else if (isProcessing) {
                                 foreach (KeyValuePair<string, string[]> kvp in actionMappings) {
                                     if (wordUp != null && kvp.Value.Contains(wordUp)) {
-                                        if (actionEvent != null && wordUp == "OPEN" || wordUp == "PULL") {
+                                        if (actionEvent != null && kvp.Key == "OPEN" || wordUp == "PULL") {
                                             actionEvent(kvp.Key);
                                         }
-                                        if (goalEvent != null && wordUp == "UP" || wordUp == "LEFT" || wordUp == "DOWN" || wordUp == "RIGHT")
+                                        if (goalEvent != null && kvp.Key == "UP" || wordUp == "LEFT" || wordUp == "DOWN" || wordUp == "RIGHT")
                                         {
                                             goalEvent(kvp.Key);
                                         }
-                                        if (lightEvent != null && wordUp == "LIGHT")
+                                        if (lightEvent != null && kvp.Key == "LIGHT")
                                         {
                                             lightEvent();
                                         }
