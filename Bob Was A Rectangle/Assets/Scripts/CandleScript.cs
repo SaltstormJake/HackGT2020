@@ -21,7 +21,7 @@ public class CandleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CandleInterval(2.0f));
+        StartCoroutine(CandleInterval(4.0f));
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class CandleScript : MonoBehaviour
         candlelight.intensity = candleIntensity;
     }
 
-    public IEnumerator CandleInterval(float t = 2.0f)
+    public IEnumerator CandleInterval(float t = 4.0f)
     {
         if (!lit)
         {
