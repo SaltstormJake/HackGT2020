@@ -44,6 +44,9 @@ namespace WatsonIntegration
         [SerializeField]
         private string _iamApikey;
 
+        [SerializeField]
+        ObjectRecognition objectRecognition;
+
         [Header("Parameters")]
         // https://www.ibm.com/watson/developercloud/speech-to-text/api/v1/curl.html?curl#get-model
         [Tooltip("The Model to use. This defaults to en-US_BroadbandModel")]
@@ -84,6 +87,8 @@ namespace WatsonIntegration
         {
             LogSystem.InstallDefaultReactors();
             Runnable.Run(CreateService());
+
+            actionEvent += objectRecognition.SetCommand;
         }
 
         private IEnumerator CreateService()

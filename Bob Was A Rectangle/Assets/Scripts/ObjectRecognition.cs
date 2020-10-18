@@ -6,6 +6,16 @@ public class ObjectRecognition : MonoBehaviour
 {
     string command;
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        command = "";
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        command = "";
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
 
