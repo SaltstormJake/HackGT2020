@@ -401,6 +401,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6102480909436043806, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
   m_PrefabInstance: {fileID: 6102480909775055289}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &279900280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279900279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ffde2382a24f142b99b4fa50d0be11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementAmount: 0.25
+  jumpHeight: 0.5
+  moveSpeed: 0.25
+  buffer: 0.1
 --- !u!50 &279900281
 Rigidbody2D:
   serializedVersion: 4
@@ -2132,6 +2148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6102480909436043793, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
+    - {fileID: 279900280, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0fe6d64653d776c4db948f4dbda02439, type: 3}
 --- !u!1001 &7552822629751508008
 PrefabInstance:
@@ -2430,5 +2447,9 @@ PrefabInstance:
       propertyPath: objectRecognition
       value: 
       objectReference: {fileID: 2047951642}
+    - target: {fileID: 8895454373542447743, guid: df4ce9ed0c8e4404da34406079004d38, type: 3}
+      propertyPath: controlledGoal
+      value: 
+      objectReference: {fileID: 279900280}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df4ce9ed0c8e4404da34406079004d38, type: 3}
